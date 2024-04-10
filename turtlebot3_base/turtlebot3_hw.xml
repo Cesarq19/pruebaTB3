@@ -1,0 +1,9 @@
+<library path="diffdrive_turtlebot3">
+
+    <class name="turtlebot3_base/DiffDriveTurtlebot3" type="turtlebot3_base::DiffDriveTurtlebot3" base_class_type="hardware_interface::SystemInterface">
+      <description>
+        Hardware interface implementation for the Turtlebot3 robot.
+      </description>
+    </class>
+  
+</library>

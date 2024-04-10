@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <ros2_control name="RealRobot" type="system">
+        <hardware>
+            <plugin>turtlebot3_base/DiffDriveTurtlebot3</plugin>
+            <param name="left_wheel_name">wheel_left_joint</param>
+            <param name="right_wheel_name">wheel_right_joint</param>
+            <param name="serial_device">/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.0-port0</param>
+            <param name="baud_rate">57600</param>
+            <param name="protocol">2.0</param>
+        </hardware>
+
+        <joint name="wheel_left_joint">
+            <param name="id">0</param>
+            <param name="RPM_TO_MS">0.00079136718</param>
+            <param name="TICK_TO_RAD">0.001533981</param>
+            <command_interface name="velocity">
+                <param name="min">-5</param>
+                <param name="max">5</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="wheel_right_joint">
+            <param name="id">1</param>
+            <param name="RPM_TO_MS">0.00079136718</param>
+            <param name="TICK_TO_RAD">0.001533981</param>
+            <command_interface name="velocity">
+                <param name="min">-5</param>
+                <param name="max">5</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+        </joint>
+    </ros2_control>
+</robot>
