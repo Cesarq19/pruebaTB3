@@ -11,7 +11,6 @@ find_package(rclcpp REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(dynamixel_sdk REQUIRED)
 
-add_subdirectory(applications)
 add_subdirectory(src)
 
 if(BUILD_TESTING)
