@@ -23,7 +23,7 @@ ament_target_dependencies(diffdrive_turtlebot3
 target_link_libraries(diffdrive_turtlebot3 PUBLIC motor_driver)
 
 install(
-  TARGETS diffdrive_andino motor_driver
+  TARGETS diffdrive_turtlebot3 motor_driver
   EXPORT ${PROJECT_NAME}-targets
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
