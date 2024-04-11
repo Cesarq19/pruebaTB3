@@ -20,5 +20,5 @@ endif()
 
 # Export library so pluginlib can find it.
 pluginlib_export_plugin_description_file(hardware_interface turtlebot3_hw.xml)
-
+ament_export_dependencies(dynamixel_sdk)
 ament_package()
