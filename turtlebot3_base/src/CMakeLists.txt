@@ -1,3 +1,4 @@
+find_package(dynamixel_sdk REQUIRED)
 add_library(motor_driver SHARED motor_driver.cpp)
 
 target_include_directories(motor_driver
