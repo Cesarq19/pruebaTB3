@@ -1,3 +1,4 @@
+#include "dynamixel_sdk/dynamixel_sdk.h"
 #include "turtlebot3_base/motor_driver.hpp"
 
 namespace turtlebot3_base {
