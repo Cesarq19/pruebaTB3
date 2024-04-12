@@ -43,10 +43,5 @@ if(BUILD_TESTING)
 endif()
 
 pluginlib_export_plugin_description_file(hardware_interface turtlebot3_hw.xml)
-<<<<<<< Updated upstream
-ament_export_dependencies(dynamixel_sdk)
-ament_package()
-=======
 
 ament_package()
->>>>>>> Stashed changes
