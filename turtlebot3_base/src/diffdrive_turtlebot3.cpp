@@ -118,7 +118,7 @@ namespace turtlebot3_base {
             return hardware_interface::return_type::ERROR;
         }
 
-        const MotorDriver::Encoders encoders = motor_driver_.ReadMotors(config_.left_wheel_id, config_.left_wheel_id);
+        const std::array<int32_t, 2> encoders = motor_driver_.ReadMotors(config_.left_wheel_id, config_.left_wheel_id);
 
         left_wheel_.enc_ = encoders[0];
         right_wheel_.enc_ = encoders[1];
