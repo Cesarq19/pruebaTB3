@@ -16,7 +16,7 @@ def generate_launch_description():
                           description='Run robot state publisher node.')
 
     # Obtains andino_description's share directory path.
-    pkg_turtlebot_description = get_package_share_directory('andino_description')
+    pkg_turtlebot_description = get_package_share_directory('turtlebot3_description')
 
     # Obtain urdf from xacro files.
     doc = xacro.process_file(os.path.join(pkg_turtlebot_description, 'urdf', 'turtlebot3_burger.urdf.xacro'))
