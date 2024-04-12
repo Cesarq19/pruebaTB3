@@ -31,7 +31,7 @@ def generate_launch_description():
     # Includes andino_description launch file
     include_turtlebot_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_turtlebot_description, 'launch', 'andino_description.launch.py'),
+            os.path.join(pkg_turtlebot_description, 'launch', 'turtlebot_description.launch.py'),
         ),
         launch_arguments={
             'rsp': 'True',
