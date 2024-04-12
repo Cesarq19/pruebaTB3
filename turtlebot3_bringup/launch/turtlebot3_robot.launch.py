@@ -18,13 +18,13 @@ def generate_launch_description():
     # Declares launch arguments
     ydlidar_arg = DeclareLaunchArgument(
             'include_ydlidar',
-            default_value='True',
+            default_value='False',
             description='Indicates whether to include ydlidar launch.')
     ydlidar =  LaunchConfiguration('include_ydlidar')
 
     imu_arg = DeclareLaunchArgument(
             'include_imu',
-            default_value='True',
+            default_value='False',
             description='Indicates whether to include witmotion imu launch.')
     imu =  LaunchConfiguration('include_imu')
 
