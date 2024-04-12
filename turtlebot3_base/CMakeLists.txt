@@ -26,7 +26,7 @@ find_package(rclcpp REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(lifecycle_msgs REQUIRED)
-
+find_package(dynamixel_sdk REQUIRED)
 include_directories(include)
 
 add_subdirectory(src)
