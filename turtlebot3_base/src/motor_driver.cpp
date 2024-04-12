@@ -1,12 +1,7 @@
-<<<<<<< Updated upstream
-#include <dynamixel_sdk/dynamixel_sdk.h>
-#include "turtlebot3_base/motor_driver.hpp"
-=======
 #include "turtlebot3_base/motor_driver.h"
 #define ADDR_OPERATING_MODE 11
 #define ADDR_TORQUE_ENABLE 64
 #define DEVICE_NAME "/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.0-port0" 
->>>>>>> Stashed changes
 
 namespace turtlebot3_base {
     void MotorDriver::Setup(int baudrate, int protocol, int left_motor_id, int right_motor_id) {
