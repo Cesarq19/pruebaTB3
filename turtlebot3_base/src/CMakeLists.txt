@@ -6,6 +6,8 @@ target_include_directories(motor_driver
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
+target_include_directories(motor_driver PUBLIC ${dynamixel_sdk_INCLUDE_DIRS})
+# target_link_libraries(motor_driver PUBLIC ${SERIAL_LDFLAGS} ${CMAKE_THREAD_LIBS_INIT})
 
 add_library(diffdrive_turtlebot3 SHARED diffdrive_turtlebot3.cpp wheel.cpp)
 
@@ -19,6 +21,7 @@ ament_target_dependencies(diffdrive_turtlebot3
     hardware_interface
     pluginlib
     rclcpp
+    dynamixel_sdk
 )
 
 target_link_libraries(diffdrive_turtlebot3 PUBLIC motor_driver)
@@ -33,4 +36,4 @@ install(
 
 ament_export_libraries(diffdrive_turtlebot3)
 ament_export_targets(${PROJECT_NAME}-targets HAS_LIBRARY_TARGET)
-ament_export_dependencies(hardware_interface pluginlib rclcpp)
+ament_export_dependencies(hardware_interface pluginlib rclcpp dynamixel_sdk)

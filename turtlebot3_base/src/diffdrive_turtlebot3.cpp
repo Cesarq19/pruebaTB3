@@ -1,4 +1,8 @@
 #include "turtlebot3_base/diffdrive_turtlebot3.h"
+#include <hardware_interface/types/hardware_interface_type_values.hpp>
+#include <pluginlib/class_list_macros.hpp>
+
+#define DEVICE_NAME "/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.0-port0" 
 
 namespace turtlebot3_base {
 
@@ -36,14 +40,14 @@ namespace turtlebot3_base {
             }
         }
 
-        config_.left_wheel_id = info.joints[0].id;
-        config_.right_wheel_id = info.joints[1].id;
+        config_.left_wheel_id = std::stoi(info.joints[0].parameters.at("id"));
+        config_.right_wheel_id = std::stoi(info.joints[1].parameters.at("id"));
 
-        config_.left_wheel_RPM_TO_MS = std::stod(info.joints[0].RPM_TO_MS);
-        config_.right_wheel_RPM_TO_MS = std::stod(info.joints[1].RPM_TO_MS);
+        config_.left_wheel_RPM_TO_MS = std::stod(info.joints[0].parameters.at("RPM_TO_MS"));
+        config_.right_wheel_RPM_TO_MS = std::stod(info.joints[1].parameters.at("RPM_TO_MS"));
 
-        config_.left_wheel_TICK_TO_RAD = std::stod(info.joints[0].TICK_TO_RAD);
-        config_.right_wheel_TICK_TO_RAD = std::stod(info.joints[1].TICK_TO_RAD);
+        config_.left_wheel_TICK_TO_RAD = std::stod(info.joints[0].parameters.at("TICK_TO_RAD"));
+        config_.right_wheel_TICK_TO_RAD = std::stod(info.joints[1].parameters.at("TICK_TO_RAD"));
 
         // Set up the wheels
         left_wheel_.Setup(config_.left_wheel_name, config_.left_wheel_TICK_TO_RAD);
@@ -57,7 +61,7 @@ namespace turtlebot3_base {
     hardware_interface::CallbackReturn DiffDriveTurtlebot3::on_configure(const rclcpp_lifecycle::State& /*previous_state*/) {
         RCLCPP_INFO(logger_, "On configure...");
         // Set up communication with motor driver controller.
-        motor_driver_.Setup(config_.serial_device, config_.baud_rate, config_.timeout);
+        motor_driver_.Setup(config_.baud_rate, config_.protocol, config_.left_wheel_id, config_.right_wheel_id);
 
         RCLCPP_INFO(logger_, "Finished Configuration");
 
@@ -109,12 +113,12 @@ namespace turtlebot3_base {
     hardware_interface::return_type DiffDriveTurtlebot3::read(const rclcpp::Time& /* time */, const rclcpp::Duration& period) {
         const double delta_secs = period.seconds();
 
-        if (!motor_driver_.is_connected()) {
+        if (!motor_driver_.is_connected(config_.left_wheel_id, config_.left_wheel_id)) {
             RCLCPP_ERROR(logger_, "Motor driver is not connected.");
             return hardware_interface::return_type::ERROR;
         }
 
-        const MotorDriver::Encoders encoders = motor_driver_.ReadMotors();
+        const MotorDriver::Encoders encoders = motor_driver_.ReadMotors(config_.left_wheel_id, config_.left_wheel_id);
 
         left_wheel_.enc_ = encoders[0];
         right_wheel_.enc_ = encoders[1];
@@ -131,7 +135,7 @@ namespace turtlebot3_base {
     }
 
     hardware_interface::return_type DiffDriveTurtlebot3::write(const rclcpp::Time& /* time */, const rclcpp::Duration& /* period */) {
-        if (!motor_driver_.is_connected()) {
+        if (!motor_driver_.is_connected(config_.left_wheel_id, config_.left_wheel_id)) {
             RCLCPP_ERROR(logger_, "Motor driver is not connected.");
             return hardware_interface::return_type::ERROR;
         }
@@ -142,7 +146,7 @@ namespace turtlebot3_base {
 
         const int left_value_target = static_cast<int>(100 * left_wheel_.cmd_ * config_.left_wheel_RPM_TO_MS);
         const int right_value_target = static_cast<int>(100 * right_wheel_.cmd_ * config_.right_wheel_RPM_TO_MS);
-        motor_driver_.SetMotorValues(left_value_target, right_value_target);
+        motor_driver_.SetMotorValues(left_value_target, right_value_target, config_.left_wheel_id, config_.left_wheel_id);
 
         return hardware_interface::return_type::OK;        
     }

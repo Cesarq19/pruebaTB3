@@ -22,9 +22,6 @@ namespace turtlebot3_base {
         /// @brief Default constructor
         MotorDriver() = default;
 
-        /// @brief Type to store the encoder values.
-        using Encoders = std::array<int32_t, 2>;
-
         /// @brief Check if the motors is OK
         /// @return True if the motors response with COMM_SUCCESS, false otherwise
         bool is_connected(int left_motor_id, int right_motor_id) const;
@@ -35,9 +32,9 @@ namespace turtlebot3_base {
         /// @param protocol Protocol of communciation of the motors (eg. 1.0 or 2.0)
         /// @param left_motor_id ID of dynamixel left motor
         /// @param right_motor_id ID of dyanamixel right motor
-        void Setup(const std::string& serial_port, int baudrate, int protocol, int left_motor_id, int right_motor_id);
+        void Setup(int baudrate, int protocol, int left_motor_id, int right_motor_id);
 
-        Encoders ReadMotors(int left_motor_id, int right_motor_id);
+        std::array<int32_t, 2> ReadMotors(int left_motor_id, int right_motor_id);
 
         /// @brief Set the motor values.
         ///        The unit of the values is in encoder ticks per revolution.
