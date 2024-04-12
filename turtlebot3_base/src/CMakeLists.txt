@@ -7,10 +7,7 @@ target_include_directories(motor_driver
     $<INSTALL_INTERFACE:include>)
 
 target_include_directories(motor_driver PUBLIC ${dynamixel_sdk_INCLUDE_DIRS})
-target_link_libraries(motor_driver
-  PRIVATE
-  dynamixel_sdk  
-)
+target_link_libraries(motor_driver PUBLIC dynamixel_sdk)
 
 add_library(diffdrive_turtlebot3 SHARED diffdrive_turtlebot3.cpp wheel.cpp)
 
