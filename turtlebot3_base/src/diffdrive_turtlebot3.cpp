@@ -144,8 +144,8 @@ namespace turtlebot3_base {
         // Using the rads per tick(rpt) of the motor information
         // Formula: ticks/sec = rads/sec / rads/tick
 
-        const int left_value_target = static_cast<int>(100 * left_wheel_.cmd_ * config_.left_wheel_RPM_TO_MS);
-        const int right_value_target = static_cast<int>(100 * right_wheel_.cmd_ * config_.right_wheel_RPM_TO_MS);
+        const int left_value_target = static_cast<int>(4.36 * left_wheel_.cmd_ / config_.left_wheel_RPM_TO_MS);
+        const int right_value_target = static_cast<int>(-4.36 * right_wheel_.cmd_ / config_.right_wheel_RPM_TO_MS);
         motor_driver_.SetMotorValues(left_value_target, right_value_target, config_.left_wheel_id, config_.right_wheel_id);
 
         return hardware_interface::return_type::OK;        
