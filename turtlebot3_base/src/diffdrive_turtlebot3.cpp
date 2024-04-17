@@ -1,6 +1,8 @@
 #include "turtlebot3_base/diffdrive_turtlebot3.h"
 #include <hardware_interface/types/hardware_interface_type_values.hpp>
 #include <pluginlib/class_list_macros.hpp>
+#include <string.h> 
+using namespace std; 
 
 #define DEVICE_NAME "/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.0-port0" 
 
@@ -146,8 +148,8 @@ namespace turtlebot3_base {
 
         const int left_value_target = static_cast<int>(left_wheel_.cmd_ * 1285.05347);
         const int right_value_target = static_cast<int>(right_wheel_.cmd_ * 1285.05347);
-        RCLCPP_INFO(logger_, (left_wheel_.cmd_).c_str());
-        RCLCPP_INFO(logger_, (right_wheel_.cmd_).c_str());
+        RCLCPP_INFO(logger_, to_string(left_wheel_.cmd_));
+        RCLCPP_INFO(logger_, to_string(right_wheel_.cmd_));
         motor_driver_.SetMotorValues(left_value_target, -right_value_target, config_.left_wheel_id, config_.right_wheel_id);
 
         return hardware_interface::return_type::OK;        
