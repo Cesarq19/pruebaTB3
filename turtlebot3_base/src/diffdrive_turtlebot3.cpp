@@ -128,7 +128,7 @@ namespace turtlebot3_base {
         left_wheel_.vel_ = (left_wheel_.pos_ - left_pos_prev) / delta_secs;
 
         const double right_pos_prev = right_wheel_.pos_;
-        right_wheel_.pos_ = right_wheel_.Angle();
+        right_wheel_.pos_ = -right_wheel_.Angle();
         right_wheel_.vel_ = (right_wheel_.pos_ - right_pos_prev) / delta_secs;
 
         return hardware_interface::return_type::OK;
