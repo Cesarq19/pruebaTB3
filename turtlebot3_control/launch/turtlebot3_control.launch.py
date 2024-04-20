@@ -29,6 +29,7 @@ def generate_launch_description():
             ('/diff_controller/cmd_vel_unstamped', '/cmd_vel'), # Used if use_stamped_vel param is false
             ('/diff_controller/cmd_vel_out', '/cmd_vel_out'), # Used if publish_limited_velocity param is true
             ('/diff_controller/odom', '/odom'),
+            ('/diff_controller/imu', '/imu'),
         ],
         output="both",
     )
@@ -37,6 +38,12 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
+    imu_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
     diff_drive_controller_spawner = Node(
@@ -55,6 +62,7 @@ def generate_launch_description():
 
     nodes = [
         control_node,
+        imu_sensor_broadcaster_spawner,
         joint_state_broadcaster_spawner,
         delay_diff_drive_controller_spawner_after_joint_state_broadcaster_spawner,
     ]

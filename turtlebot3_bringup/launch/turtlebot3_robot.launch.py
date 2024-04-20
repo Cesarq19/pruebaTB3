@@ -24,7 +24,7 @@ def generate_launch_description():
 
     imu_arg = DeclareLaunchArgument(
             'include_imu',
-            default_value='False',
+            default_value='True',
             description='Indicates whether to include witmotion imu launch.')
     imu =  LaunchConfiguration('include_imu')
 
