@@ -18,7 +18,7 @@ def generate_launch_description():
     # Declares launch arguments
     ydlidar_arg = DeclareLaunchArgument(
             'include_ydlidar',
-            default_value='False',
+            default_value='True',
             description='Indicates whether to include ydlidar launch.')
     ydlidar =  LaunchConfiguration('include_ydlidar')
 
@@ -28,7 +28,7 @@ def generate_launch_description():
             description='Indicates whether to include witmotion imu launch.')
     imu =  LaunchConfiguration('include_imu')
 
-    # Includes andino_description launch file
+    # Includes turtlebot_description launch file
     include_turtlebot_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_turtlebot_bringup, 'launch', 'turtlebot_description.launch.py'),
@@ -38,7 +38,7 @@ def generate_launch_description():
         }.items()
     )
 
-    # Include andino_control launch file
+    # Include turtlebot_control launch file
     include_turtlebot_control =  IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_turtlebot_control, 'launch', 'turtlebot3_control.launch.py'),
@@ -63,7 +63,7 @@ def generate_launch_description():
             condition=IfCondition(imu)
     )
 
-    # Waits for andino_description to set up robot_state_publisher.
+    # Waits for turtlebot_description to set up robot_state_publisher.
     turtlebot_control_timer = TimerAction(period=5.0, actions=[include_turtlebot_control])
     # Defer sensors launch to avoid overhead while robot_state_publisher is setting up.
     ydlidar_timer = TimerAction(period=3.0, actions=[include_ydlidar])
