@@ -148,8 +148,6 @@ namespace turtlebot3_base {
 
         const int left_value_target = static_cast<int>(left_wheel_.cmd_ * 100);
         const int right_value_target = static_cast<int>(right_wheel_.cmd_ * 100);
-        RCLCPP_INFO(logger_, to_string(left_wheel_.cmd_).c_str());
-        RCLCPP_INFO(logger_, to_string(right_wheel_.cmd_).c_str());
         motor_driver_.SetMotorValues(left_value_target, -right_value_target, config_.left_wheel_id, config_.right_wheel_id);
 
         return hardware_interface::return_type::OK;        
