@@ -17,12 +17,17 @@ def generate_launch_description():
 
     # We need the robot description to be passed to the controller_manager
     # So it can check the ros2_control parameters.
-    robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
+    pkg_turtlebot_description = get_package_share_directory('turtlebot3_description')
+    doc = xacro.process_file(os.path.join(pkg_turtlebot_description, 'urdf', 'turtlebot3_burger.urdf.xacro'))
+    robot_desc = doc.toprettyxml(indent='  ')
+    params = {'robot_description': robot_desc} 
+
+    #robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
 
     control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[{'robot_description': ParameterValue(robot_description, value_type=str)},
+        parameters=[params,
                     controller_params_file],
         remappings=[
             ('/diff_controller/cmd_vel', '/cmd_vel'), # Used if use_stamped_vel param is true
