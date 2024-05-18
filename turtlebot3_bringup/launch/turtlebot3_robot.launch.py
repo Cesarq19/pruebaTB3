@@ -28,6 +28,12 @@ def generate_launch_description():
             description='Indicates whether to include witmotion imu launch.')
     imu =  LaunchConfiguration('include_imu')
 
+    namespace_arg = DeclareLaunchArgument(
+            'namespace',
+            default_value='',
+            description='Robot namespace.')
+    namespace =  LaunchConfiguration('namespace')
+
     # Includes turtlebot_description launch file
     include_turtlebot_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -35,6 +41,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             'rsp': 'True',
+            'namespace': namespace
         }.items()
     )
 
